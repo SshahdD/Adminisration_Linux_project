@@ -1,0 +1,9 @@
+set(CAESAR_SRC
+    src/caesar_encrypt.c
+    src/caesar_decrypt.c
+)
+
+add_library(caesar STATIC ${CAESAR_SRC})
+
+target_include_directories(caesar PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc)
+

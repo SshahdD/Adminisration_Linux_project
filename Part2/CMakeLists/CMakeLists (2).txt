@@ -1,0 +1,9 @@
+set(XOR_SRC
+    src/xor_encrypt.c
+    src/xor_decrypt.c
+)
+
+add_library(xor SHARED ${XOR_SRC})
+
+target_include_directories(xor PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc)
+
