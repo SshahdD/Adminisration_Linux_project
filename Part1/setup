@@ -1,0 +1,37 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+  echo "Ensure you entered <username>"
+  exit 1
+fi
+
+project_dir="project_files"
+user_home="/home/$1"
+
+# Remove existing project directory forcefully
+[ -d "$project_dir" ] && rm -rf "$project_dir"
+
+# Create project directory and files
+mkdir $project_dir
+touch $project_dir/{main.c,main.h,hello.c,hello.h}
+
+# Set read-write permission for the user
+sudo chmod u+rw $project_dir/*
+
+for file in $project_dir/*; do
+  echo "this file is named $(basename "$file")" > "$file"
+done
+
+ #Create tar archive (in current dir)
+tar -cvf $project_dir.tar $project_dir
+
+# Check if user home exists and is writable
+if [ -d $user_home ] && [ -w $user_home ]; then
+ echo "You Can access or write to $user_home" 
+ cp $project_dir.tar $user_home
+ tar -xf $user_home/$project_dir.tar -C $user_home
+else
+ echo "Cannot access or write to $user_home. Are you running as the right user?"
+  exit 2
+fi
+

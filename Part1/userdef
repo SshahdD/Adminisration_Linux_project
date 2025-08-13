@@ -1,0 +1,47 @@
+#!/bin/bash
+
+
+if [ $# -ne 3 ]; then
+  echo " Ensure you entered the <username> <userpass> <groupname>"
+  exit 1
+fi
+
+username=$1
+userpass=$2
+groupname=$3
+
+
+if [ $EUID -ne 0 ]; then
+  echo "Ensure running as root (use sudo)."
+  exit 1
+fi
+
+# Display entered arguments
+echo "Username: $username"
+echo "Password: $userpass"
+echo "Group name: $groupname"
+
+
+useradd -m -s /bin/bash $username
+
+
+echo "$username:$userpass" | chpasswd
+
+
+echo "Information about this user:"
+id $username
+
+# GID=200
+groupadd -g 200 $groupname
+
+
+usermod -aG $groupname $username
+
+echo "After adding to group:"
+id $username
+
+#user's UID=1600  and set the primary group
+usermod -u 1600 -g "$groupname" "$username"
+
+echo "After UID Change  and update the primary group :"
+id $username

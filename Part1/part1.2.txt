@@ -1,0 +1,7 @@
+the commands run at each part 
+g)sudo su user_name (shahd) :cd /home/shahd/project_files
+h)ls -l         #run at the current directory
+i)sudo chown -R shahd /home/shahd/project_files
+j)ls -l         #run at the current directory
+k)grep -r ".c$" #run at the current directory
+l)rm *.c        #run at the current directory

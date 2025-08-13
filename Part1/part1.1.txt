@@ -1,0 +1,17 @@
+1) How to make this script globally reachable?
+
+Method 1:
+- Move the script to /usr/local/bin:
+  sudo cp userdef /usr/local/bin/userdef
+  sudo chmod +x /usr/local/bin/userdef
+
+Method 2:
+- Add the script’s folder to PATH:
+  sudo nano ~/.bashrc
+after adding this line at the end:
+(export PATH="$PATH:/path/to/your/script")
+source ~/.bashrc
+2) To make the PATH change permanent:by put it at .bashrc 
+
+3) To make the change now:
+   By running this command source ~/.bashrc
